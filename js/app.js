@@ -327,7 +327,7 @@ const App = {
       const ss = new Date(data.daily.sunset[dataIndex]).toLocaleTimeString('sl', { hour: '2-digit', minute: '2-digit' });
 
       return `
-        <tr${isToday ? ' style="background:rgba(79,195,247,0.04)' : ''}>
+        <tr${isToday ? ' style="background:rgba(79,195,247,0.04)"' : ''}>
           <td style="font-weight:600;color:var(--text-primary);white-space:nowrap">${dayStr}</td>
           <td style="font-size:20px">${icon}</td>
           <td>${cond}</td>
@@ -372,7 +372,7 @@ const App = {
       const isNow = i === 0;
 
       return `
-        <tr${isNow ? ' style="background:rgba(79,195,247,0.04)' : ''}>
+        <tr${isNow ? ' style="background:rgba(79,195,247,0.04)"' : ''}>
           <td style="font-weight:${isNow ? '700' : '400'};color:${isNow ? 'var(--accent)' : 'var(--text-secondary)'};white-space:nowrap">${hour}${isNow ? ' ← zdaj' : ''}</td>
           <td style="font-size:18px">${icon}</td>
           <td style="font-family:var(--font-data);font-weight:600;color:var(--text-primary)">${temp}</td>
