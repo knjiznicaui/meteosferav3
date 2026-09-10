@@ -26,14 +26,13 @@ const Maps = {
     snow:    'https://tile.openweathermap.org/map/snow/{z}/{x}/{y}.png'
   },
 
-  // Dark OSM tiles
-  DARK_TILES: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-  LIGHT_TILES: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  // OpenStreetMap tiles - no API key required
+  DARK_TILES: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  LIGHT_TILES: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   OSM_TILES:   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 
   getTileLayer() {
-    const theme = Settings.get('theme') || 'dark';
-    return theme === 'light' ? this.LIGHT_TILES : this.DARK_TILES;
+    return this.OSM_TILES;
   },
 
   // ---- INIT MINI MAP ----
@@ -48,8 +47,8 @@ const Maps = {
     });
 
     L.tileLayer(this.getTileLayer(), {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/">CARTO</a>',
-      subdomains: 'abcd', maxZoom: 19
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: 'abc', maxZoom: 19
     }).addTo(this.miniMap);
 
     // Weather layer (clouds free)
@@ -105,7 +104,8 @@ const Maps = {
     });
 
     this._fullBaseLayer = L.tileLayer(this.getTileLayer(), {
-      attribution: '© OSM © CARTO', subdomains: 'abcd', maxZoom: 19
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: 'abc', maxZoom: 19
     }).addTo(this.fullMap);
 
     // Add weather layer
@@ -212,7 +212,10 @@ const Maps = {
     if (!el) return;
 
     this.radarMap = L.map('radarMap', { center: [lat, lon], zoom: 6 });
-    L.tileLayer(this.getTileLayer(), { attribution: '© OSM © CARTO', subdomains: 'abcd', maxZoom: 19 }).addTo(this.radarMap);
+    L.tileLayer(this.getTileLayer(), {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      subdomains: 'abc', maxZoom: 19
+    }).addTo(this.radarMap);
     L.circleMarker([lat, lon], { radius: 7, fillColor: '#4FC3F7', color: '#00E5FF', weight: 2, fillOpacity: 0.9 }).addTo(this.radarMap);
 
     await this._reloadRadarFrames();
